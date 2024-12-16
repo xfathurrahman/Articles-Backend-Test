@@ -104,3 +104,5 @@ Your API is now deployed and accessible via the Fly.io URL. You can find more in
 - Prisma ORM
 - PostgreSQL
 - JSON Web Tokens (JWT) for authentication
+
+note: already change the credentials 👌😭
