@@ -4,6 +4,58 @@ import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /articles:
+ *   get:
+ *     summary: Get all articles
+ *     tags: [Articles]
+ *     parameters:
+ *       - in: query
+ *         name: articleId
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: userId
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: title
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: createdAtStart
+ *         schema:
+ *           type: string
+ *           format: date
+ *       - in: query
+ *         name: createdAtEnd
+ *         schema:
+ *           type: string
+ *           format: date
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *     responses:
+ *       200:
+ *         description: List of articles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Article'
+ */
 router.get('/', async (req, res) => {
     try {
         const {
@@ -53,9 +105,33 @@ router.get('/', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /articles:
+ *   post:
+ *     summary: Create a new article
+ *     tags: [Articles]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ArticleInput'
+ *     responses:
+ *       200:
+ *         description: Created article
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Article'
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/', authenticateToken, async (req, res) => {
     try {
-        const article = await prisma.article.create({
+        constarticle = await prisma.article.create({
             data: {
                 ...req.body,
                 userId: req.user.id
@@ -67,6 +143,40 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /articles/{id}:
+ *   put:
+ *     summary: Update an article
+ *     tags: [Articles]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ArticleInput'
+ *     responses:
+ *       200:
+ *         description: Updated article
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Article'
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Article not found
+ */
 router.put('/:id', authenticateToken, async (req, res) => {
     try {
         const article = await prisma.article.findUnique({
@@ -91,6 +201,30 @@ router.put('/:id', authenticateToken, async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /articles/{id}:
+ *   delete:
+ *     summary: Delete an article
+ *     tags: [Articles]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Article deleted
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Article not found
+ */
 router.delete('/:id', authenticateToken, async (req, res) => {
     try {
         const article = await prisma.article.findUnique({
@@ -115,4 +249,3 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 });
 
 export default router;
-
