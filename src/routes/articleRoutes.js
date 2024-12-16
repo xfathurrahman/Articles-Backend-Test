@@ -131,7 +131,7 @@ router.get('/', async (req, res) => {
  */
 router.post('/', authenticateToken, async (req, res) => {
     try {
-        constarticle = await prisma.article.create({
+        const article = await prisma.article.create({
             data: {
                 ...req.body,
                 userId: req.user.id
