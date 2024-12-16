@@ -10,8 +10,10 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000/api',
-                description: 'Development server',
+                url: process.env.NODE_ENV === 'production'
+                    ? 'https://articles-backend-test.fly.dev/api'
+                    : 'http://localhost:3000/api',
+                description: process.env.NODE_ENV === 'production' ? 'Production server' : 'Development server',
             },
         ],
         components: {
