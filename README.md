@@ -1,4 +1,5 @@
-# Articles API - Backend Test
+# Simple Articles Management API with authentication
+
 
 This is a Node.js Express application for managing articles and categories with user authentication.
 
