@@ -63,14 +63,16 @@ To deploy this API to Fly.io, follow these steps:
 1. Install the Fly CLI: https://fly.io/docs/hands-on/install-flyctl/
 
 2. Login to Fly:
-   \`\`\`
+   ```
    fly auth login
-   \`\`\`
+   ```
 
 3. Create a new app on Fly:
-   \`\`\`
+   
+   ```
    fly launch
-   \`\`\`
+   ```
+   
    Follow the prompts, selecting a unique app name and region.
 
 - create postgres with 
@@ -81,20 +83,19 @@ To deploy this API to Fly.io, follow these steps:
 - like : ```postgres://postgres:db_password@db_host:5432/postgres?sslmode=disable```
 
 4. Set up your environment variables:
-   \`\`\`
-   fly secrets set DATABASE_URL="your-database-url"
-   fly secrets set JWT_SECRET="your-jwt-secret"
-   \`\`\`
+   ```
+   fly secrets set DATABASE_URL=your-database-url JWT_SECRET=your-jwt-secret
+   ```
 
 5. Deploy your app:
-   \`\`\`
+   ```
    fly deploy
-   \`\`\`
+   ```
 
 6. Open your deployed app:
-   \`\`\`
+   ```
    fly open
-   \`\`\`
+   ```
 
 Your API is now deployed and accessible via the Fly.io URL. You can find more information about managing your deployment in the [Fly.io documentation](https://fly.io/docs/).
 
