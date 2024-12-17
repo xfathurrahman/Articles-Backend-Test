@@ -92,11 +92,6 @@ To deploy this API to Fly.io, follow these steps:
    fly deploy
    ```
 
-6. Open your deployed app:
-   ```
-   fly open
-   ```
-
 Your API is now deployed and accessible via the Fly.io URL. You can find more information about managing your deployment in the [Fly.io documentation](https://fly.io/docs/).
 
 ## Technologies Used
